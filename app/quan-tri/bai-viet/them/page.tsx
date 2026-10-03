@@ -2,6 +2,8 @@
 
 import "react-quill-new/dist/quill.snow.css";
 
+import dynamic from "next/dynamic";
+
 import {
   ChangeEvent,
   FormEvent,
@@ -9,7 +11,12 @@ import {
   useState,
 } from "react";
 
-import ReactQuill from "react-quill-new";
+const ReactQuill = dynamic(
+  () => import("react-quill-new"),
+  {
+    ssr: false,
+  }
+);
 
 type Article = {
   id: number;
