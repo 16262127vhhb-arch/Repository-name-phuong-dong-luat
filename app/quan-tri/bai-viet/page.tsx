@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 type Article = {
@@ -40,7 +40,7 @@ function formatDate(date: string | null) {
   });
 }
 
-export default function QuanTriBaiVietPage() {
+function QuanTriBaiVietContent() {
   const searchParams = useSearchParams();
 
   const filter = searchParams.get("filter") || "all";
@@ -379,5 +379,19 @@ export default function QuanTriBaiVietPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function QuanTriBaiVietPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="min-h-screen bg-[#f5f7fa] px-6 py-10 text-center text-sm text-slate-500">
+          Đang tải...
+        </main>
+      }
+    >
+      <QuanTriBaiVietContent />
+    </Suspense>
   );
 }
