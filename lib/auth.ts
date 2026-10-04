@@ -20,8 +20,8 @@ const auth = betterAuth({
 
   trustedOrigins: [
     "http://localhost:3000",
-    "https://liemminhlaw.vn",
-    "https://www.liemminhlaw.vn",
+    "https://liemminhlaw.com",
+    "https://www.liemminhlaw.com",
   ],
 });
 
