@@ -3,7 +3,7 @@ import { randomUUID } from "crypto";
 import { requireAdmin } from "@/lib/require-admin";
 
 const s3 = new S3Client({
-  region: process.env.AWS_REGION,
+  region: "us-east-2",
   endpoint: process.env.AWS_ENDPOINT_URL_S3,
   forcePathStyle: true,
   credentials: {
@@ -101,7 +101,10 @@ export async function POST(request: Request) {
     return Response.json(
       {
         success: false,
-        message: "Không thể upload ảnh",
+        message:
+          error instanceof Error
+            ? error.message
+            : "Lỗi không xác định khi upload ảnh",
       },
       { status: 500 }
     );
