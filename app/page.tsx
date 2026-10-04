@@ -530,7 +530,7 @@ export const metadata: Metadata = {
                         {article.excerpt && (
                           <h3 className="text-[13px] font-bold leading-5 text-[#0f2747] transition group-hover:text-[#b88d3b] sm:text-sm">
                             {article.excerpt}
-                          </p>
+                          </h3>
                         )}
 
                       </div>
