@@ -1,5 +1,6 @@
 import { sql } from "@/lib/db";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 
 
 type ArticlePageProps = {
@@ -8,6 +9,93 @@ type ArticlePageProps = {
     slug: string;
   }>;
 };
+export async function generateMetadata({
+  params,
+}: ArticlePageProps): Promise<Metadata> {
+  const { slug } = await params;
+
+  const result = await sql`
+    SELECT
+      title,
+      category,
+      slug,
+      excerpt,
+      image_url
+    FROM articles
+    WHERE slug = ${slug}
+      AND published = true
+    LIMIT 1
+  `;
+
+  if (result.length === 0) {
+    return {
+      title: "Bài viết pháp luật | LIÊM MINH",
+      description:
+        "Tổng hợp kiến thức, phân tích và giải thích các vấn đề pháp luật thường gặp trong thực tế.",
+    };
+  }
+
+  const article = result[0];
+
+  const title = `${article.title} | LIÊM MINH`;
+
+  const description =
+    typeof article.excerpt === "string" && article.excerpt.trim()
+      ? article.excerpt.trim().slice(0, 160)
+      : `Thông tin, phân tích và kiến thức pháp luật về ${article.category}.`;
+
+  const baseUrl = "https://liemminhlaw.com";
+
+  const url = `${baseUrl}/bai-viet/${slugify(
+    article.category
+  )}/${article.slug}`;
+
+  const imageUrl =
+    typeof article.image_url === "string"
+      ? article.image_url.trim()
+      : "";
+
+  return {
+    title,
+    description,
+
+    alternates: {
+      canonical: url,
+    },
+
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: "LIÊM MINH",
+      locale: "vi_VN",
+      type: "article",
+      ...(imageUrl
+        ? {
+            images: [
+              {
+                url: imageUrl,
+                width: 1200,
+                height: 675,
+                alt: article.title,
+              },
+            ],
+          }
+        : {}),
+    },
+
+    twitter: {
+      card: imageUrl ? "summary_large_image" : "summary",
+      title,
+      description,
+      ...(imageUrl
+        ? {
+            images: [imageUrl],
+          }
+        : {}),
+    },
+  };
+}
 
 function formatDate(date: string | Date | null) {
   if (!date) return "";
