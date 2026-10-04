@@ -28,6 +28,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ORDER BY created_at DESC
   `;
 
+  const categoryUrls = [
+    "hon-nhan-gia-dinh",
+    "hinh-su",
+    "dan-su",
+    "dat-dai",
+    "doanh-nghiep",
+    "kinh-doanh-thuong-mai",
+    "lao-dong",
+    "thi-hanh-an",
+    "cac-linh-vuc-khac",
+  ].map((slug) => ({
+    url: `${baseUrl}/bai-viet/${slug}`,
+    changeFrequency: "weekly" as const,
+    priority: 0.7,
+  }));
+
   const articleUrls = articles.map((article) => ({
     url: `${baseUrl}/bai-viet/${slugify(article.category)}/${article.slug}`,
     lastModified:
@@ -51,6 +67,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "daily",
       priority: 0.9,
     },
+
+    ...categoryUrls,
+
     {
       url: `${baseUrl}/gioi-thieu`,
       changeFrequency: "monthly",
@@ -61,6 +80,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.5,
     },
+
     ...articleUrls,
   ];
 }
