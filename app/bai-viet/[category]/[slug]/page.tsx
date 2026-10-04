@@ -133,7 +133,8 @@ export default async function ArticlePage({
       content,
       image_url,
       published_at,
-      created_at
+      created_at,
+      updated_at
     FROM articles
     WHERE slug = ${slug}
       AND published = true
@@ -143,13 +144,74 @@ export default async function ArticlePage({
   if (result.length === 0) {
     notFound();
   }
+const article = result[0];
 
-  const article = result[0];
+const imageUrl =
+  typeof article.image_url === "string"
+    ? article.image_url.trim()
+    : "";
 
-  const imageUrl =
-    typeof article.image_url === "string"
-      ? article.image_url.trim()
-      : "";
+const articleUrl = `https://liemminhlaw.com/bai-viet/${slugify(
+  article.category
+)}/${article.slug}`;
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: article.title,
+  description:
+    typeof article.excerpt === "string"
+      ? article.excerpt.trim()
+      : "",
+  image: imageUrl ? [imageUrl] : undefined,
+  datePublished: article.published_at || article.created_at,
+  dateModified:
+    article.updated_at ||
+    article.published_at ||
+    article.created_at,
+  publisher: {
+    "@type": "Organization",
+    name: "LIÊM MINH",
+    url: "https://liemminhlaw.com",
+  },
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": articleUrl,
+  },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Trang chủ",
+      item: "https://liemminhlaw.com",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Bài viết pháp luật",
+      item: "https://liemminhlaw.com/bai-viet",
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: article.category,
+      item: `https://liemminhlaw.com/bai-viet/${slugify(
+        article.category
+      )}`,
+    },
+    {
+      "@type": "ListItem",
+      position: 4,
+      name: article.title,
+      item: articleUrl,
+    },
+  ],
+};
 
   /*
    * Làm sạch nội dung HTML được tạo từ Quill
@@ -181,7 +243,19 @@ export default async function ArticlePage({
 
   return (
     <main className="min-h-screen bg-[#f6f8fa] text-[#172b45]">
+<script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify(articleSchema),
+  }}
+/>
 
+<script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify(breadcrumbSchema),
+  }}
+/>  
       {/* =====================================================
           PHẦN ĐẦU BÀI VIẾT
       ===================================================== */}
@@ -221,9 +295,7 @@ export default async function ArticlePage({
               <span className="h-px w-10 bg-[#c39a52]" />
 
               <a
-                href={`/bai-viet?category=${slugify(
-                  article.category
-                )}`}
+                href={`/bai-viet/${slugify(article.category)}`}
                 className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#806322] transition hover:text-[#5f4818]"
               >
                 {article.category}
