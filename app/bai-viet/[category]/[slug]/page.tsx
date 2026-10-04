@@ -1,6 +1,6 @@
 import { sql } from "@/lib/db";
 import { notFound } from "next/navigation";
-import DOMPurify from "isomorphic-dompurify";
+
 
 type ArticlePageProps = {
   params: Promise<{
@@ -67,12 +67,10 @@ export default async function ArticlePage({
    * Làm sạch nội dung HTML được tạo từ Quill
    * trước khi hiển thị ra trình duyệt.
    */
-  const cleanContent = DOMPurify.sanitize(
-    typeof article.content === "string"
-      ? article.content
-      : ""
-  );
-
+  const cleanContent =
+  typeof article.content === "string"
+    ? article.content
+    : "";
   /*
    * Bài viết liên quan cùng lĩnh vực.
    */
@@ -145,7 +143,7 @@ export default async function ArticlePage({
             </div>
 
             {/* Tiêu đề */}
-            <h1 className="mt-4 max-w-5xl text-[28px] font-bold leading-[1.2] tracking-[-0.02em] text-[#0f2747] md:text-5xl lg:text-[52px]">
+            <h1 className="mt-4 max-w-5xl text-[26px] font-bold leading-[1.2] tracking-[-0.02em] text-[#0f2747] md:text-5xl lg:text-[52px]">
               {article.title}
             </h1>
 
@@ -183,32 +181,24 @@ export default async function ArticlePage({
                   alt={article.title}
                   width={1200}
                   height={675}
-                  className="block max-h-[400px] w-full object-cover"
+                  className="block max-h-[300px] w-full object-cover sm:max-h-[360px]"
                 />
               </figure>
             )}
 
 
             {/* Khu vực đọc */}
-            <div className="mx-auto mt-7 max-w-4xl">
+            <div className="mx-auto mt-6 max-w-4xl">
   {article.excerpt && (
     <div className="border-l-[3px] border-[#c39a52] bg-white px-5 py-4 shadow-sm md:px-6 md:py-5">
-      <p className="text-[15px] font-medium leading-7 text-[#46566a] md:text-[16px]">
+      <p className="text-[14px] font-medium leading-6 text-[#46566a] sm:text-[15px] sm:leading-7 md:text-[16px]">
         {article.excerpt}
       </p>
     </div>
   )}
 
               {/* SAPO */}
-              {article.excerpt && (
-                <div className="border-l-[3px] border-[#c39a52] bg-white px-5 py-4 shadow-sm md:px-6 md:py-5">
-                  <p className="text-[16px] font-medium leading-7 text-[#46566a]">
-                    {article.excerpt}
-                  </p>
-                </div>
-              )}
-
-
+              
               {/* ===================================================
                   NỘI DUNG QUILL
               =================================================== */}
@@ -217,7 +207,7 @@ export default async function ArticlePage({
                 className="
                   article-content
                   mt-6
-                  text-[20px]
+                  text-[18px] sm:text-[20px]
                   leading-[1.95]
                   text-[#26384d]
 
@@ -324,7 +314,7 @@ export default async function ArticlePage({
                   THÔNG TIN THAM KHẢO
               =================================================== */}
 
-              <div className="mt-12 border border-[#dce2e8] bg-white px-6 py-6 shadow-sm md:px-7">
+              <div className="mt-8 border border-[#dce2e8] bg-white px-4 py-5 shadow-sm sm:px-6 sm:py-6 md:px-7">
 
                 <div className="flex items-start gap-4">
 
@@ -386,14 +376,14 @@ export default async function ArticlePage({
                 </p>
               </div>
 
-              <h2 className="mt-2 text-2xl font-bold text-[#0f2747] md:text-3xl">
+              <h2 className="mt-2 text-[24px] font-bold leading-tight text-[#0f2747] md:text-3xl">
                 Bài viết liên quan
               </h2>
 
             </div>
 
 
-            <div className="grid gap-6 md:grid-cols-3">
+            <div className="grid gap-4 sm:gap-5 md:grid-cols-3 md:gap-6">
 
               {relatedArticles.map((related: any) => {
                 const relatedHref = `/bai-viet/${slugify(
@@ -431,14 +421,14 @@ export default async function ArticlePage({
 
 
                     {/* Nội dung card */}
-                    <div className="p-5">
+                    <div className="p-4 sm:p-5">
 
                       <div className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#806322]">
                         {related.category}
                       </div>
 
                       <a href={relatedHref}>
-                        <h3 className="mt-2 line-clamp-3 text-[16px] font-bold leading-6 text-[#0f2747] transition group-hover:text-[#806322]">
+                        <h3 className="mt-2 line-clamp-3 text-[15px] font-bold leading-5 text-[#0f2747] transition group-hover:text-[#806322] sm:text-[16px] sm:leading-6">
                           {related.title}
                         </h3>
                       </a>
