@@ -836,17 +836,77 @@ export default function ThemBaiVietPage() {
     placeholder="Bắt đầu viết nội dung bài viết..."
   />
 
-  <style jsx global>{`
-    .ql-container {
-      min-height: 600px;
-      font-size: 16px;
-    }
+ <style jsx global>{`
+  .ql-container {
+    min-height: 600px;
+    font-size: 16px;
+  }
 
-    .ql-editor {
-      min-height: 600px;
-      padding: 24px;
-      line-height: 1.7;
-    }
+  .ql-editor {
+    min-height: 600px;
+    padding: 24px;
+    line-height: 1.7;
+  }
+
+  .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="arial"]::before,
+  .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="arial"]::before {
+    content: "Arial";
+    font-family: Arial, sans-serif;
+  }
+
+  .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="times-new-roman"]::before,
+  .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="times-new-roman"]::before {
+    content: "Times New Roman";
+    font-family: "Times New Roman", serif;
+  }
+
+  .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="georgia"]::before,
+  .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="georgia"]::before {
+    content: "Georgia";
+    font-family: Georgia, serif;
+  }
+
+  .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="verdana"]::before,
+  .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="verdana"]::before {
+    content: "Verdana";
+    font-family: Verdana, sans-serif;
+  }
+
+  .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="tahoma"]::before,
+  .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="tahoma"]::before {
+    content: "Tahoma";
+    font-family: Tahoma, sans-serif;
+  }
+
+  .ql-snow .ql-picker.ql-font .ql-picker-label[data-value="courier-new"]::before,
+  .ql-snow .ql-picker.ql-font .ql-picker-item[data-value="courier-new"]::before {
+    content: "Courier New";
+    font-family: "Courier New", monospace;
+  }
+
+  .ql-editor .ql-font-arial {
+    font-family: Arial, sans-serif;
+  }
+
+  .ql-editor .ql-font-times-new-roman {
+    font-family: "Times New Roman", serif;
+  }
+
+  .ql-editor .ql-font-georgia {
+    font-family: Georgia, serif;
+  }
+
+  .ql-editor .ql-font-verdana {
+    font-family: Verdana, sans-serif;
+  }
+
+  .ql-editor .ql-font-tahoma {
+    font-family: Tahoma, sans-serif;
+  }
+
+  .ql-editor .ql-font-courier-new {
+    font-family: "Courier New", monospace;
+  }
   `}</style>
 </div>
 
