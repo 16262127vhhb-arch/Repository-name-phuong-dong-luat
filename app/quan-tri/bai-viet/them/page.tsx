@@ -826,16 +826,29 @@ export default function ThemBaiVietPage() {
               Nội dung bài viết
             </label>
 
-            <div className="mt-2 overflow-hidden rounded-xl border border-gray-300 bg-white">
-              <ReactQuill
-                theme="snow"
-                value={content}
-                onChange={setContent}
-                modules={quillModules}
-                formats={quillFormats}
-                placeholder="Bắt đầu viết nội dung bài viết..."
-              />
-            </div>
+            <div className="min-h-[600px]">
+  <ReactQuill
+    theme="snow"
+    value={content}
+    onChange={setContent}
+    modules={quillModules}
+    formats={quillFormats}
+    placeholder="Bắt đầu viết nội dung bài viết..."
+  />
+
+  <style jsx global>{`
+    .ql-container {
+      min-height: 600px;
+      font-size: 16px;
+    }
+
+    .ql-editor {
+      min-height: 600px;
+      padding: 24px;
+      line-height: 1.7;
+    }
+  `}</style>
+</div>
 
             <p className="mt-3 text-xs text-gray-500">
               Có thể định dạng văn bản, tạo tiêu đề,
