@@ -1,8 +1,9 @@
 "use client";
 
 import "react-quill-new/dist/quill.snow.css";
-
 import dynamic from "next/dynamic";
+
+import "quill-table-better/dist/quill-table-better.css";
 
 import {
   ChangeEvent,
@@ -11,13 +12,67 @@ import {
   useState,
 } from "react";
 
+const tableKeyboardBindings: Record<string, any> = {};
+
 const ReactQuill = dynamic(
-  () => import("react-quill-new"),
+  async () => {
+    const [
+      { default: ReactQuillComponent },
+      { default: Quill },
+      { default: QuillTableBetter },
+    ] = await Promise.all([
+      import("react-quill-new"),
+      import("quill"),
+      import("quill-table-better"),
+    ]);
+
+    const Font = Quill.import("formats/font") as any;
+
+    Font.whitelist = [
+      "arial",
+      "times-new-roman",
+      "georgia",
+      "verdana",
+      "tahoma",
+      "courier-new",
+    ];
+
+    Quill.register(Font, true);
+
+    const Size = Quill.import("attributors/style/size") as any;
+
+    Size.whitelist = [
+      "12px",
+      "14px",
+      "16px",
+      "18px",
+      "20px",
+      "24px",
+      "28px",
+      "32px",
+      "36px",
+    ];
+
+    Quill.register(Size, true);
+
+    Quill.register(
+      {
+        "modules/table-better": QuillTableBetter,
+      },
+      true
+    );
+
+    Object.assign(
+      tableKeyboardBindings,
+      QuillTableBetter.keyboardBindings
+    );
+
+    return ReactQuillComponent;
+  },
   {
     ssr: false,
   }
 );
-
 type Article = {
   id: number;
   title: string;
@@ -92,13 +147,99 @@ function formatFileSize(bytes: number) {
 }
 
 const quillModules = {
+    table: false,
+
+  "table-better": {
+    language: "en_US",
+    menus: [
+      "column",
+      "row",
+      "merge",
+      "table",
+      "cell",
+      "wrap",
+      "copy",
+      "delete",
+    ],
+    toolbarTable: true,
+  },
+
+  keyboard: {
+  bindings: tableKeyboardBindings,
+},
   toolbar: {
     container: [
-      [{ header: [2, 3, false] }],
-      ["bold", "italic", "underline"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      [{ align: [] }],
-      ["link", "image"],
+      [
+        {
+          font: [
+            false,
+            "arial",
+            "times-new-roman",
+            "georgia",
+            "verdana",
+            "tahoma",
+            "courier-new",
+          ],
+        },
+      ],
+
+      [
+        {
+          size: [
+            "12px",
+            "14px",
+            "16px",
+            "18px",
+            "20px",
+            "24px",
+            "28px",
+            "32px",
+            "36px",
+          ],
+        },
+      ],
+
+      [{ header: [1, 2, 3, false] }],
+
+      ["bold", "italic", "underline", "strike"],
+
+      [
+        {
+          color: [],
+        },
+        {
+          background: [],
+        },
+      ],
+
+      [
+        {
+          align: [],
+        },
+      ],
+
+      [
+        {
+          list: "ordered",
+        },
+        {
+          list: "bullet",
+        },
+      ],
+
+      [
+        {
+          indent: "-1",
+        },
+        {
+          indent: "+1",
+        },
+      ],
+
+      ["blockquote"],
+
+      ["link", "image", "table-better"],
+
       ["clean"],
     ],
 
@@ -142,12 +283,26 @@ const quillModules = {
 
 const quillFormats = [
   "header",
+
+  "font",
+  "size",
+
   "bold",
   "italic",
   "underline",
+  "strike",
+
+  "color",
+  "background",
+
   "list",
   "bullet",
+
+  "indent",
   "align",
+
+  "blockquote",
+
   "link",
   "image",
 ];
