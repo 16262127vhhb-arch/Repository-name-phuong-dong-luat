@@ -348,7 +348,7 @@ const breadcrumbSchema = {
 
 
             {/* Khu vực đọc */}
-            <div className="mx-auto mt-6 max-w-4xl">
+            <div className="mx-auto mt-6 w-full max-w-3xl">
   {article.excerpt && (
     <div className="border-l-[3px] border-[#c39a52] bg-white px-5 py-4 shadow-sm md:px-6 md:py-5">
       <p className="text-[14px] font-medium leading-6 text-[#46566a] sm:text-[15px] sm:leading-7 md:text-[16px]">
@@ -365,14 +365,115 @@ const breadcrumbSchema = {
 
               <div
                 className="
-                  article-content
-                  mt-6
-                  text-[18px] sm:text-[20px]
-                  leading-[1.95]
-                  text-[#26384d]
+  article-content
+  mt-6
+  w-full
+  max-w-none
+  min-w-0
+  overflow-x-hidden
+  break-words
+  text-[17px] sm:text-[18px]
+  leading-[1.75]
+  text-[#26384d]
 
-                  [&_p]:mb-5
-                  [&_p]:leading-[1.95]
+  [&_p]:mb-4
+  [&_p]:leading-[1.75]
+  [&_p]:break-words
+
+  [&_h1]:mb-4
+  [&_h1]:mt-8
+  [&_h1]:border-b
+  [&_h1]:border-[#e2e6eb]
+  [&_h1]:pb-3
+  [&_h1]:text-2xl
+  [&_h1]:font-bold
+  [&_h1]:leading-tight
+  [&_h1]:text-[#0f2747]
+
+  [&_h2]:mb-3
+  [&_h2]:mt-8
+  [&_h2]:border-l-[3px]
+  [&_h2]:border-[#c39a52]
+  [&_h2]:pl-3
+  [&_h2]:text-xl
+  [&_h2]:font-bold
+  [&_h2]:leading-tight
+  [&_h2]:text-[#0f2747]
+
+  [&_h3]:mb-2
+  [&_h3]:mt-6
+  [&_h3]:text-lg
+  [&_h3]:font-bold
+  [&_h3]:leading-tight
+  [&_h3]:text-[#173454]
+
+  [&_strong]:font-bold
+  [&_strong]:text-[#0f2747]
+
+  [&_em]:italic
+
+  [&_ul]:mb-5
+  [&_ul]:list-disc
+  [&_ul]:pl-6
+
+  [&_ol]:mb-5
+  [&_ol]:list-decimal
+  [&_ol]:pl-6
+
+  [&_li]:mb-1
+  [&_li]:leading-[1.7]
+
+  [&_a]:font-medium
+  [&_a]:text-[#173454]
+  [&_a]:underline
+  [&_a]:decoration-[#c39a52]
+  [&_a]:underline-offset-4
+  [&_a]:transition
+  [&_a:hover]:text-[#806322]
+
+  [&_blockquote]:my-6
+  [&_blockquote]:border-l-[3px]
+  [&_blockquote]:border-[#c39a52]
+  [&_blockquote]:bg-white
+  [&_blockquote]:px-5
+  [&_blockquote]:py-4
+  [&_blockquote]:italic
+  [&_blockquote]:text-[#5c6978]
+  [&_blockquote]:shadow-sm
+  [&_blockquote]:break-words
+
+  [&_img]:my-6
+  [&_img]:max-h-[650px]
+  [&_img]:max-w-full
+  [&_img]:w-auto
+  [&_img]:border
+  [&_img]:border-[#dfe5eb]
+  [&_img]:object-contain
+  [&_img]:bg-white
+
+  [&_table]:my-6
+  [&_table]:w-full
+  [&_table]:max-w-full
+  [&_table]:border-collapse
+  [&_table]:text-[14px]
+  [&_table]:break-words
+
+  [&_th]:border
+  [&_th]:border-[#d8dee5]
+  [&_th]:bg-[#edf2f6]
+  [&_th]:px-3
+  [&_th]:py-2
+  [&_th]:text-left
+  [&_th]:font-bold
+  [&_th]:text-[#0f2747]
+
+  [&_td]:border
+  [&_td]:border-[#d8dee5]
+  [&_td]:px-3
+  [&_td]:py-2
+  [&_td]:align-top
+  [&_td]:break-words
+"
 
                   [&_h1]:mb-5
                   [&_h1]:mt-10
